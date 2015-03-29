@@ -3,16 +3,17 @@ package calcudoku;
 import java.util.List;
 import java.util.Map;
 
+import calcudoku.utilities.Solution;
 import engine.api.GPSState;
 
 public class CDState implements GPSState{
 
 	private Board board;
-	private Map<Integer, List<Integer>> solutions;
+	private Map<Integer, Solution> solutions;
 	private int[] sumCols;
 	private int[] sumRows;
 
-	public CDState(Board board, Map<Integer, List<Integer>> sol) {
+	public CDState(Board board, Map<Integer, Solution> sol) {
 
 		this.board = board;
 		this.solutions = sol;
@@ -20,11 +21,11 @@ public class CDState implements GPSState{
 		this.sumRows = new int[board.board_size];
 	}
 
-	public Map<Integer, List<Integer>> getSolutions() {
+	public Map<Integer, Solution> getSolutions() {
 		return this.solutions;
 	}
 
-	public void setSolution(Map<Integer, List<Integer>> solutions) {
+	public void setSolution(Map<Integer, Solution> solutions) {
 		this.solutions = solutions;
 	}
 	
@@ -57,8 +58,8 @@ public class CDState implements GPSState{
 			if (!state.getSolutions().containsKey(key))
 				return false;
 
-			List<Integer> sol1 = this.solutions.get(key);
-			List<Integer> sol2 = state.getSolutions().get(key);
+			Solution sol1 = this.solutions.get(key);
+			Solution sol2 = state.getSolutions().get(key);
 
 			if (!sol1.equals(sol2))
 				return false;

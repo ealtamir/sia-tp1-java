@@ -18,6 +18,8 @@ public class SimilarCuadrantsHeuristic extends Heuristic{
 		int[] cuadrants = new int[4];
 		
 		
+		
+		
 		return 0;
 	}
 

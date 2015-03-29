@@ -30,8 +30,6 @@ public class Board {
     
     public Map<Integer, Block> getBlocks(){
     	return blocks;
-        blockArray = new Block[board_size][board_size];
-        initBlockArray();
     }
 
     private void initBlockArray() {
