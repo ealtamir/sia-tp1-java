@@ -1,8 +1,10 @@
 package calcudoku;
 
+import calcudoku.utilities.Solution;
 import engine.api.GPSProblem;
 import engine.api.GPSRule;
 import engine.api.GPSState;
+import engine.exception.NotAppliableException;
 
 import java.util.List;
 
@@ -11,6 +13,13 @@ import java.util.List;
  */
 public class Problem implements GPSProblem {
 
+    private static List<GPSRule> rules = null;
+    private final Board board;
+
+    public Problem(Board board) {
+        this.board = board;
+    }
+
     @Override
     public GPSState getInitState() {
         return null;
@@ -18,11 +27,20 @@ public class Problem implements GPSProblem {
 
     @Override
     public GPSState getGoalState() {
-        return null;
+        String msg = "We're not using this goal verification method";
+        throw new UnsupportedOperationException(msg);
     }
 
     @Override
     public List<GPSRule> getRules() {
+        if (rules == null) {
+            rules = generateRules();
+        }
+        return null;
+    }
+
+    private List<GPSRule> generateRules() {
+        List<Solution> solutions = board.getBlockSolutions();
         return null;
     }
 

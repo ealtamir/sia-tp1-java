@@ -1,12 +1,17 @@
 package search_strategies;
 
 import engine.GPSNode;
-import search_strategies.SearchStrategy;
+
+import java.util.LinkedList;
 
 public class DFSStrategy extends SearchStrategy {
 
+    public DFSStrategy(){
+        this.frontier = new LinkedList<GPSNode>();
+    }
+
     @Override
     public GPSNode frontierPop() {
-        return null;
+        return ((LinkedList<GPSNode>)frontier).getLast();
     }
 }
