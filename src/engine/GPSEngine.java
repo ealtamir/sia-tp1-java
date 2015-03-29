@@ -4,6 +4,7 @@ import engine.api.GPSProblem;
 import engine.api.GPSRule;
 import engine.api.GPSState;
 import engine.exception.NotAppliableException;
+import search_strategies.SearchStrategy;
 
 import java.util.HashMap;
 import java.util.Map;

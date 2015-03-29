@@ -1,5 +1,5 @@
 package engine;
 
-public interface Heuristic {
+public interface EvaluateFunction {
     public int value(GPSNode node);
 }

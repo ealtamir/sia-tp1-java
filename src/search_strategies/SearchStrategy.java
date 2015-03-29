@@ -1,4 +1,6 @@
-package engine;
+package search_strategies;
+
+import engine.GPSNode;
 
 public abstract class SearchStrategy {
 
