@@ -1,8 +1,7 @@
-package engine;
+package search_strategies;
 
-/**
- * Created by Enzo on 28.03.15.
- */
+import engine.GPSNode;
+
 public abstract class SearchStrategy {
 
     public long frontierSize() {
@@ -13,7 +12,5 @@ public abstract class SearchStrategy {
 
     }
 
-    public GPSNode frontierPop() {
-        return null;
-    }
+    public abstract GPSNode frontierPop();
 }
