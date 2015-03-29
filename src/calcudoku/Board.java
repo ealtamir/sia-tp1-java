@@ -2,8 +2,11 @@ package calcudoku;
 
 import calcudoku.exceptions.BlockAlreadyInBoardException;
 import calcudoku.exceptions.BlockOverlapException;
+import calcudoku.exceptions.InvalidSolutionSizeException;
 import calcudoku.utilities.Point;
+import calcudoku.utilities.Solution;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +52,16 @@ public class Board {
         }
     }
 
-    public void getBlockSolutions() {
+    public List<Solution> getBlockSolutions() {
+        List<List<Integer>> solutions = null;
+        List<Solution> result = new ArrayList<Solution>();
 
+        for (Block block : blocks.values()) {
+            solutions = block.getSolutions();
+            for (List<Integer> solution : solutions) {
+                result.add(new Solution(block, solution));
+            }
+        }
+        return result;
     }
 }

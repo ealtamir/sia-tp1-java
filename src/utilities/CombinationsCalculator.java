@@ -1,6 +1,7 @@
 package utilities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CombinationsCalculator {
 
@@ -12,11 +13,16 @@ public class CombinationsCalculator {
      * @param n size of the board
      * @return A list of lists of possible combinations
      */
-    public ArrayList<ArrayList<Integer>> calculateCombinations(char op, int total, int squares, int n) {
-        if(squares == 1)
-            return new ArrayList<ArrayList<Integer>>(total);
+    static public List<List<Integer>> calculateCombinations(
+            char op, int total, int squares, int n) {
+        List<List<Integer>> combinations = new ArrayList<List<Integer>>();
+        if(squares == 1) {
+            List<Integer> solution = new ArrayList<Integer>();
+            solution.add(total);
+            combinations.add(solution);
+            return combinations;
+        }
 
-        ArrayList<ArrayList<Integer>> combinations = new ArrayList<ArrayList<Integer>>();
         for(int i = 1; i <= n; i++) {
             ArrayList<Integer> aux = new ArrayList<Integer>();
             aux.add(i);
@@ -27,7 +33,8 @@ public class CombinationsCalculator {
         return combinations;
     }
 
-    public ArrayList<ArrayList<Integer>> dispatch(char op, int total, int squares, int v, int n, ArrayList<Integer> checked) {
+    static public ArrayList<ArrayList<Integer>> dispatch(
+            char op, int total, int squares, int v, int n, ArrayList<Integer> checked) {
         switch(op) {
             case '+':
                 return calculateAdditions(total, squares, v, n, checked);
@@ -44,7 +51,7 @@ public class CombinationsCalculator {
         return null; /* for the compiler to shut up */
     }
 
-    private ArrayList<ArrayList<Integer>> calculateHelper(Operator op, int total, int squares, int v, int n, ArrayList<Integer> checked) {
+    static private ArrayList<ArrayList<Integer>> calculateHelper(Operator op, int total, int squares, int v, int n, ArrayList<Integer> checked) {
         ArrayList<Integer> numbers = new ArrayList<Integer>();
         for(int i = 1; i <= n; i++) {
             if(op.apply(i, v) <= total) {
@@ -67,8 +74,8 @@ public class CombinationsCalculator {
         return combinations;
     }
 
-    private ArrayList<ArrayList<Integer>> calculateDivisions(int total,
-                                                             int squares, int v, int n, ArrayList<Integer> checked) {
+    static private ArrayList<ArrayList<Integer>> calculateDivisions(
+            int total, int squares, int v, int n, ArrayList<Integer> checked) {
         for(int i = 1; i <= n; i++) {
             if(v / i == total) {
                 ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
@@ -86,22 +93,22 @@ public class CombinationsCalculator {
         return null;
     }
 
-    private ArrayList<ArrayList<Integer>> calculateProducts(int total, int squares, int v, int n, ArrayList<
-            Integer> checked) {
+    static private ArrayList<ArrayList<Integer>> calculateProducts(
+            int total, int squares, int v, int n, ArrayList<Integer> checked) {
         return calculateHelper(new ProductOperator(), total, squares, v, n, checked);
     }
 
-    private ArrayList<ArrayList<Integer>> calculateSubtraction(int total, int squares, int v, int n, ArrayList<
-            Integer> checked) {
+    static private ArrayList<ArrayList<Integer>> calculateSubtraction(
+            int total, int squares, int v, int n, ArrayList<Integer> checked) {
         return calculateHelper(new SubtractionOperator(), total, squares, v, n, checked);
     }
 
-    private ArrayList<ArrayList<Integer>> calculateAdditions(int total, int squares, int v, int n, ArrayList<
-            Integer> checked) {
+    static private ArrayList<ArrayList<Integer>> calculateAdditions(
+            int total, int squares, int v, int n, ArrayList<Integer> checked) {
         return calculateHelper(new AdditionOperator(), total, squares, v, n, checked);
     }
 
-    private class SubtractionOperator implements Operator {
+    static private class SubtractionOperator implements Operator {
 
         @Override
         public float apply(int a, int b) {
@@ -109,7 +116,7 @@ public class CombinationsCalculator {
         }
     }
 
-    private class ProductOperator implements Operator {
+    static private class ProductOperator implements Operator {
 
         @Override
         public float apply(int a, int b) {
@@ -117,7 +124,7 @@ public class CombinationsCalculator {
         }
     }
 
-    private class AdditionOperator implements Operator {
+    static private class AdditionOperator implements Operator {
 
         @Override
         public float apply(int a, int b) {
