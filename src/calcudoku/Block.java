@@ -1,9 +1,5 @@
 package calcudoku;
 
-import calcudoku.exceptions.BlockClassAlreadyInitiatedException;
-import calcudoku.exceptions.BlockClassNotInitiatedException;
-import calcudoku.exceptions.InvalidBlockStructure;
-import calcudoku.exceptions.InvalidSolutionSizeException;
 import calcudoku.utilities.Point;
 
 import java.util.Iterator;
@@ -11,13 +7,10 @@ import java.util.List;
 
 import static utilities.CombinationsCalculator.calculateCombinations;
 
-/**
- * Created by Enzo on 29.03.15.
- */
 public class Block {
 
-    static private int blockCounter = 0;
-    static private int boardSize = -1;
+    private static int blockCounter = 0;
+    private int boardSize;
 
     private final char operation;
     private final int id;
@@ -26,20 +19,17 @@ public class Block {
     private int squares_num = 0;
     private int total = 0;
 
-    public Block(char operation, int squares_num, int total, List<Point> points)
-            throws BlockClassNotInitiatedException, InvalidBlockStructure {
+    public Block(char operation, int squares_num, int boardSize, int total, List<Point> points) {
         this.operation = operation;
         this.squares_num = squares_num;
         this.total = total;
+        this.boardSize = boardSize;
         this.id = Block.generateId();
-
-        if (pointsAreInvalid(points)) {
-            throw new InvalidBlockStructure();
-        }
         this.points = points;
 
-        if (Block.boardSize == -1) {
-            throw new BlockClassNotInitiatedException();
+        if (pointsAreInvalid(points)) {
+            System.err.println("Error: points are overlapping");
+            System.exit(1);
         }
     }
 
@@ -57,17 +47,8 @@ public class Block {
         return blockCounter - 1;
     }
 
-    public static void initBlockClass(int n)
-            throws BlockClassAlreadyInitiatedException {
-        if (boardSize != -1) {
-            throw new BlockClassAlreadyInitiatedException();
-        }
-        boardSize = n;
-    }
-
     public List<List<Integer>> getSolutions() {
-        List<List<Integer>> solutions = calculateCombinations(
-                operation, total, squares_num, boardSize);
+        List<List<Integer>> solutions = calculateCombinations(operation, total, squares_num, boardSize);
         solutions = removeInvalidSolutions(solutions);
         return solutions;
     }

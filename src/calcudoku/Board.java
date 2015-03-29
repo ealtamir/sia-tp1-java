@@ -1,8 +1,5 @@
 package calcudoku;
 
-import calcudoku.exceptions.BlockAlreadyInBoardException;
-import calcudoku.exceptions.BlockOverlapException;
-import calcudoku.exceptions.InvalidSolutionSizeException;
 import calcudoku.utilities.Point;
 import calcudoku.utilities.Solution;
 
@@ -10,16 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Enzo on 29.03.15.
- */
 public class Board {
 
     public final int board_size;
     public final int total; 
     
     private Map<Integer, Block> blocks;
-    private int block_num = 0;
+    private int blockNum = 0;
     private Block[][] blockArray;
 
     public Board(int board_size) {
@@ -40,25 +34,26 @@ public class Board {
         }
     }
 
-    public void addBlock(Block block)
-            throws BlockOverlapException, BlockAlreadyInBoardException {
+    public void addBlock(Block block) {
         if (blocks.containsKey(block.getId())) {
-            throw new BlockAlreadyInBoardException();
+            System.err.println("Block already in Board");
+            System.exit(1);
         }
 
         blocks.put(block.getId(), block);
-        block_num += 1;
+        blockNum++;
 
         for (Point p : block.getPoints()) {
             if (blockArray[p.row][p.col] != null) {
-                throw new BlockOverlapException();
+                System.err.println("Blocks overlap");
+                System.exit(1);
             }
             blockArray[p.row][p.col] = block;
         }
     }
 
     public List<Solution> getBlockSolutions() {
-        List<List<Integer>> solutions = null;
+        List<List<Integer>> solutions;
         List<Solution> result = new ArrayList<Solution>();
 
         for (Block block : blocks.values()) {

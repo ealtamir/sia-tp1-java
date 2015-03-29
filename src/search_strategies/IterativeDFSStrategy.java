@@ -23,6 +23,7 @@ public class IterativeDFSStrategy extends SearchStrategy {
         else if(nodeWasIgnored) {
             explored = new HashMap<GPSNode, GPSNode>();
             limit++;
+            nodeWasIgnored = false;
             frontier.add(rootNode);
             return frontier.size();
         }
