@@ -26,7 +26,7 @@ public abstract class GPSEngine {
 	}
 
 	public void solve() {
-		boolean finished = false;
+		boolean finished;
 		GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
 		strategy.addNode(rootNode);
 
@@ -134,5 +134,4 @@ public abstract class GPSEngine {
 		}
 		return checkBranch(parent.getParent(), state) || state.compare(parent.getState());
 	}
-
 }

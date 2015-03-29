@@ -8,9 +8,9 @@ public class GPSNode {
 
 	private GPSNode parent;
 
-	private Integer cost;
+	private int cost;
 
-	public GPSNode(GPSState state, Integer cost) {
+	public GPSNode(GPSState state, int cost) {
 		super();
 		this.state = state;
 		this.cost = cost;
@@ -37,10 +37,28 @@ public class GPSNode {
 		return state.toString();
 	}
 
-	public String getSolution() {
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+
+        GPSNode gpsNode = (GPSNode) o;
+
+        if(!state.equals(gpsNode.state)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return state.hashCode();
+    }
+
+    public String getSolution() {
 		if (this.parent == null) {
 			return this.state.toString();
 		}
 		return this.parent.getSolution() + "\n" + this.state;
+
 	}
 }

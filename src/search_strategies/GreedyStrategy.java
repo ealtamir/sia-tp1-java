@@ -9,7 +9,7 @@ public class GreedyStrategy extends SearchStrategy {
     private static final int INITIAL_CAPACITY = 16384;
     private Heuristic heuristic;
 
-    public GreedyStrategy(Heuristic heuristic){
+    public GreedyStrategy(Heuristic heuristic) {
         this.heuristic = heuristic;
         this.frontier = new PriorityQueue<GPSNode>(INITIAL_CAPACITY, new GPSNodeComparator());
     }
@@ -22,7 +22,14 @@ public class GreedyStrategy extends SearchStrategy {
     private class GPSNodeComparator implements Comparator<GPSNode> {
         @Override
         public int compare(GPSNode o1, GPSNode o2) {
-            return heuristic.evaluate(o1) - heuristic.evaluate(o2);
+            int v1 = heuristic.evaluate(o1);
+            int v2 = heuristic.evaluate(o2);
+            if(v1 > v2) {
+                return 1;
+            } else if(v1 < v2) {
+                return -1;
+            }
+            return 0;
         }
     }
 }

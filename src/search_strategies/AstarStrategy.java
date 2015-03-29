@@ -10,20 +10,27 @@ public class AstarStrategy extends SearchStrategy {
     private Heuristic heuristic;
     private Cost cost;
 
-    public AstarStrategy(Heuristic heuristic, Cost cost){
+    public AstarStrategy(Heuristic heuristic, Cost cost) {
         this.heuristic = heuristic;
         this.cost = cost;
         this.frontier = new PriorityQueue<GPSNode>(INITIAL_CAPACITY, new GPSNodeComparator());
     }
 
-    private int evaluation(GPSNode node){
+    private int evaluation(GPSNode node) {
         return cost.evaluate(node) + heuristic.evaluate(node);
     }
 
-    private class GPSNodeComparator implements Comparator<GPSNode>{
+    private class GPSNodeComparator implements Comparator<GPSNode> {
         @Override
         public int compare(GPSNode o1, GPSNode o2) {
-            return evaluation(o1) - evaluation(o2);
+            int v1 = evaluation(o1);
+            int v2 = evaluation(o2);
+            if(v1 > v2) {
+                return 1;
+            } else if(v1 < v2) {
+                return -1;
+            }
+            return 0;
         }
     }
 }

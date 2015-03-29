@@ -2,24 +2,23 @@ package search_strategies;
 
 import engine.GPSNode;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 
 /* FIFO */
 public class BFSStrategy extends SearchStrategy {
     private Cost cost;
-    private static final int INITIAL_CAPACITY = 16384;
 
-    public BFSStrategy(Cost cost){
+    public BFSStrategy(Cost cost) {
         this.cost = cost;
-        this.frontier = new LinkedList<GPSNode>();
+        this.frontier = new ArrayDeque<GPSNode>();
     }
 
-    private int evaluation(GPSNode node){
+    private int evaluation(GPSNode node) {
         return cost.evaluate(node);
     }
 
     @Override
     public GPSNode frontierPop() {
-        return ((LinkedList<GPSNode>) frontier).getFirst();
+        return ((ArrayDeque<GPSNode>) frontier).pollFirst();
     }
 }
