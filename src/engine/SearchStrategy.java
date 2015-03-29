@@ -1,8 +1,5 @@
 package engine;
 
-/**
- * Created by Enzo on 28.03.15.
- */
 public abstract class SearchStrategy {
 
     public long frontierSize() {
@@ -13,7 +10,5 @@ public abstract class SearchStrategy {
 
     }
 
-    public GPSNode frontierPop() {
-        return null;
-    }
+    public abstract GPSNode frontierPop();
 }
